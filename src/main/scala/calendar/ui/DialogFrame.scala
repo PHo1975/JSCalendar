@@ -94,7 +94,8 @@ object EventFrame extends DialogFrame {
     currentProject=prj
     currentDay=day
     currentHour=hour
-    infoLabel.innerHTML=dayStrings(currentDay.weekDay)+" "+currentDay+" | "+currentProject.name+" | "+(if(currentHour==0)"Aufgabe" else currentHour+" Uhr")
+    infoLabel.innerHTML=dayStrings(currentDay.weekDay)+" "+currentDay+" | "+currentProject.name+" | "+(if(currentHour==0)"Aufgabe" else
+      currentHour.toString+" Uhr")
     nameEdit.value=""
     placeEdit.value=""
     doneCheckBox.checked=false
@@ -103,7 +104,7 @@ object EventFrame extends DialogFrame {
     nameEdit.focus()
     dom.document.title="Neuer Termin:"+AllProjects.currentSourceName+" "+day+" "+hour
     dom.window.history.pushState(currentProject.name+"|N|"+currentDay+"|"+hour,
-      currentProject.name+" "+currentDay+" "+(if(hour==0)"Aufgabe" else hour+" Uhr"),
+      currentProject.name+" "+currentDay+" "+(if(hour==0)"Aufgabe" else hour.toString+" Uhr"),
       "?"+scala.scalajs.js.URIUtils.encodeURI(currentProject.name)+"?N?"+currentDay+"?"+hour)
   }
 
@@ -112,7 +113,8 @@ object EventFrame extends DialogFrame {
     currentProject=null
     currentDay=day
     currentEvent=Some(event)
-    infoLabel.innerHTML=dayStrings(currentDay.weekDay)+" "+currentDay+" | "+event.project.name+" | "+(if(event.time==0)"Aufgabe" else event.time+" Uhr")
+    infoLabel.innerHTML=dayStrings(currentDay.weekDay)+" "+currentDay+" | "+event.project.name+" | "+
+      (if(event.time==0)"Aufgabe" else event.time.toString+" Uhr")
     nameEdit.value=event.name
     placeEdit.value=event.place
     doneCheckBox.checked=event.done
@@ -120,9 +122,9 @@ object EventFrame extends DialogFrame {
     deleteEventBut.style.visibility="visible"
     nameEdit.focus()
     //val monday=currentDay.addDays(1-currentDay.weekDay)
-    dom.document.title="Bearbeite "+event.name+" "+event.time+" Uhr"
+    dom.document.title="Bearbeite "+event.name+" "+event.time.toString+" Uhr"
     dom.window.history.pushState(event.project.name+"|E|"+day.toString()+"|"+event.ref.bToString(),
-      event.name+" "+currentDay+" "+(if(event.time==0)"Aufgabe" else event.time+" Uhr"),
+      event.name+" "+currentDay+" "+(if(event.time==0)"Aufgabe" else event.time.toString+" Uhr"),
       "?"+scala.scalajs.js.URIUtils.encodeURI(event.project.name)+"?E?"+day.toString+"?"+event.ref.sToString())
   }
 
